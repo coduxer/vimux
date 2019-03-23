@@ -85,7 +85,8 @@ endfunction
 
 function! VimuxRespawnRunner()
   if exists("g:VimuxRunnerIndex")
-    call _VimuxTmux("respawn-"._VimuxRunnerType()." -k -t ".g:VimuxRunnerIndex." -c \"#{pane_current_path}\"")
+    let runner_index = _VimuxTmux("display-message -p -t ".g:VimuxRunnerIndex." -F \"#{pane_current_path}\"")
+    call _VimuxTmux("respawn-"._VimuxRunnerType()." -k -t ".g:VimuxRunnerIndex." -c ".runner_index)
   else
     call VimuxOpenRunner()
   endif
