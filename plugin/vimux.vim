@@ -83,6 +83,14 @@ function! VimuxOpenRunner()
   endif
 endfunction
 
+function! VimuxRespawnRunner()
+  if exists("g:VimuxRunnerIndex")
+    call _VimuxTmux("respawn-"._VimuxRunnerType()." -k -t ".g:VimuxRunnerIndex." -c \"#{pane_current_path}\"")
+  else
+    call VimuxOpenRunner()
+  endif
+endfunction
+
 function! VimuxCloseRunner()
   if exists("g:VimuxRunnerIndex")
     call _VimuxTmux("kill-"._VimuxRunnerType()." -t ".g:VimuxRunnerIndex)
